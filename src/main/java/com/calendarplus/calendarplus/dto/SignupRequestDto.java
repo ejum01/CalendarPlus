@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 회원가입에 필요한 Dto입니다.
+ * 회원가입에 필요한 데이터를 담는 DTO 클래스입니다.
  *
  * @author : ejum
  * @since : 9/4/24

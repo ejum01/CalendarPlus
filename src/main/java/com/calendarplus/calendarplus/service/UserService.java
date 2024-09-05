@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -37,10 +36,5 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
-    }
-
-
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
     }
 }

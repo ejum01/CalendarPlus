@@ -1,0 +1,20 @@
+package com.calendarplus.calendarplus.entity;
+
+import jakarta.persistence.Entity;
+import lombok.Getter;
+
+
+/**
+ * 참석자를 나타내는 엔티티 클래스입니다.
+ * 참석자의 이메일, 이름, 참석 상태를 포함합니다.
+ *
+ * @author : ejum
+ * @since : 9/5/24
+ */
+@Entity
+@Getter
+public class Attendee extends BaseEntity {
+    private String email;         // 참석자 이메일
+    private String displayName;   // 참석자 이름
+    private boolean partstat;      // 참석 상태
+}
