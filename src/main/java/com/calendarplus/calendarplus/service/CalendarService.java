@@ -2,12 +2,14 @@ package com.calendarplus.calendarplus.service;
 
 import com.calendarplus.calendarplus.common.Constans;
 import com.calendarplus.calendarplus.dto.CreateEventRequestDto;
+import com.calendarplus.calendarplus.dto.UpdateEventDto;
 import com.calendarplus.calendarplus.entity.Event;
 import com.calendarplus.calendarplus.entity.User;
 import com.calendarplus.calendarplus.exception.UserNotFoundException;
 import com.calendarplus.calendarplus.repository.CalendarRepository;
 import com.calendarplus.calendarplus.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -93,5 +95,44 @@ public class CalendarService {
             throw new UserNotFoundException(Constans.USER_NOR_FOUND);
         }
         return calendarRepository.findByOrganizerEmail(user.getEmail());
+    }
+
+    /**
+     * 이벤트를 업데이트하는 메서드입니다.
+     * <p>
+     * 주어진 ID에 해당하는 이벤트를 찾아서 제목, 설명, 장소를 업데이트합니다.
+     * </p>
+     *
+     * @param updateEventDto 업데이트할 이벤트의 정보가 담긴 DTO
+     * @throws IllegalArgumentException 이벤트를 찾을 수 없는 경우 발생
+     */
+    @Transactional
+    public void updateEvent(UpdateEventDto updateEventDto) {
+        int rowsUpdated = calendarRepository.updateEventDetails(
+                updateEventDto.getId(),
+                updateEventDto.getTitle(),
+                updateEventDto.getDescription(),
+                updateEventDto.getLocation()
+        );
+        if (rowsUpdated == 0) {
+            throw new IllegalArgumentException(Constans.EVENT_NOT_FOUND);
+        }
+    }
+
+    /**
+     * 이벤트를 삭제하는 메서드입니다.
+     * <p>
+     * 주어진 ID에 해당하는 이벤트를 삭제합니다.
+     * </p>
+     *
+     * @param id 삭제할 이벤트의 ID
+     * @throws IllegalArgumentException 이벤트를 찾을 수 없는 경우 발생
+     */
+    @Transactional
+    public void deleteEvent(Long id) {
+        if (!calendarRepository.existsById(id)) {
+            throw new IllegalArgumentException(Constans.EVENT_NOT_FOUND);
+        }
+        calendarRepository.deleteById(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.calendarplus.calendarplus.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 
 
@@ -12,6 +13,7 @@ import lombok.Getter;
  * @since : 9/5/24
  */
 @Entity
+@Table(name = "attendee")
 @Getter
 public class Attendee extends BaseEntity {
     private String email;         // 참석자 이메일

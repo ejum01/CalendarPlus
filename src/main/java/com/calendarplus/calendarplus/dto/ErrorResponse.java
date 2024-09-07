@@ -1,4 +1,4 @@
-package com.calendarplus.calendarplus.exception;
+package com.calendarplus.calendarplus.dto;
 
 import lombok.Getter;
 import lombok.Setter;

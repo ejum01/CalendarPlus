@@ -13,4 +13,7 @@ public class Constans {
     public static final String INVALID_ORGANIZER_EMAIL = "주최자 이메일이 유효하지 않습니다.";
     public static final String INVALID_ORGANIZER_USERNAME = "주최자 정보가 유효하지 않습니다.";
     public static final String EVENT_CREATION_SUCCESS = "성공적으로 이벤트를 생성했습니다.";
+    public static final String EVENT_UPDATE_SUCCESS = "성공적으로 이벤트가 수정 되었습니다.";
+    public static final String EVENT_DELETE_SUCCESS = "성공적으로 이벤트가 삭제 되었습니다.";
+    public static final String EVENT_NOT_FOUND = "해당 이벤트를 찾을 수 없습니다.";
 }

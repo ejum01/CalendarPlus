@@ -1,6 +1,6 @@
 package com.calendarplus.calendarplus.controller;
 
-import com.calendarplus.calendarplus.exception.ErrorResponse;
+import com.calendarplus.calendarplus.dto.ErrorResponse;
 import com.calendarplus.calendarplus.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
