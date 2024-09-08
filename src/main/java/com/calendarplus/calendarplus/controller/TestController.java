@@ -61,4 +61,25 @@ public class TestController {
         }
     }
 
+    @PostMapping("/events/attend")
+    public ResponseEntity<String> attendEvent(
+            @RequestParam Long eventId,
+            @RequestParam String email,
+            @RequestParam String response) {
+        EventAttendee attendee = testRepository.findByEventIdAndEmail(eventId, email);
+        if (attendee == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Attendee not found");
+        }
+
+        if ("yes".equalsIgnoreCase(response)) {
+            attendee.setPartstat(true);
+        } else {
+            attendee.setPartstat(false);
+        }
+
+        testRepository.save(attendee);
+        return ResponseEntity.ok("Attendance response recorded successfully");
+    }
+
+
 }
