@@ -94,5 +94,4 @@ public class CalendarController {
         calendarService.deleteEvent(id);
         return ResponseEntity.status(204).body(Constans.EVENT_DELETE_SUCCESS);
     }
-
 }
