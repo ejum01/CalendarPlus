@@ -1,7 +1,3 @@
-# Updated version of README.md with markdown syntax for API documentation and removal of SQL schema
-
-final_readme_content = """
-
 # CalendarPlus
 
 ## 프로젝트 설명
@@ -18,7 +14,7 @@ final_readme_content = """
 ## 기술 스택
 
 - **언어**: Java 17 이상
-- **프레임워크**: Spring Boot 3.x
+- **프레임워크**: Spring Boot 3.3.3
 - **빌드 도구**: Gradle
 - **데이터베이스**: MySQL
 
@@ -62,7 +58,11 @@ final_readme_content = """
     spring.datasource.password=your_password
     spring.jpa.hibernate.ddl-auto=create
     ```
-
+```mysql
+*필수*
+create schema Calendarplus;
+use Calendarplus;
+```
 ---
 
 ## 주요 컴포넌트 설명
