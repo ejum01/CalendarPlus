@@ -7,6 +7,7 @@ import com.calendarplus.calendarplus.entity.Event;
 import com.calendarplus.calendarplus.entity.User;
 import com.calendarplus.calendarplus.exception.UserNotFoundException;
 import com.calendarplus.calendarplus.repository.CalendarRepository;
+import com.calendarplus.calendarplus.repository.TestRepository;
 import com.calendarplus.calendarplus.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +26,12 @@ public class CalendarService {
     private final CalendarRepository calendarRepository;
     private final UserRepository userRepository;
 
-    public CalendarService(CalendarRepository calendarRepository, UserRepository userRepository) {
+    private final TestRepository testRepository;
+
+    public CalendarService(CalendarRepository calendarRepository, UserRepository userRepository, TestRepository testRepository) {
         this.calendarRepository = calendarRepository;
         this.userRepository = userRepository;
+        this.testRepository = testRepository;
     }
 
     /**
@@ -47,7 +51,6 @@ public class CalendarService {
                 .end(eventRequestDto.getEnd())
                 .location(eventRequestDto.getLocation())
                 .title(eventRequestDto.getTitle())
-                .attendees(eventRequestDto.getAttendees())
                 .description(eventRequestDto.getDescription())
                 .organizer(eventRequestDto.getOrganizer())
                 .build();
@@ -135,5 +138,11 @@ public class CalendarService {
         }
         calendarRepository.deleteById(id);
     }
+
+    public Event getEventById(Long eventId) throws Exception {
+        return calendarRepository.findById(eventId)
+                .orElseThrow(() -> new Exception(Constans.EVENT_NOT_FOUND));
+    }
+
 
 }

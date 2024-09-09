@@ -27,4 +27,5 @@ public interface CalendarRepository extends JpaRepository<Event, Long> {
                            @Param("title") String title,
                            @Param("description") String description,
                            @Param("location") String location);
+
 }

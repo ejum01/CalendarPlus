@@ -3,6 +3,8 @@ package com.calendarplus.calendarplus.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 
 /**
@@ -15,8 +17,10 @@ import lombok.Getter;
 @Entity
 @Table(name = "attendee")
 @Getter
+@SuperBuilder
+@NoArgsConstructor
 public class Attendee extends BaseEntity {
+    private Long eventId;
     private String email;         // 참석자 이메일
-    private String displayName;   // 참석자 이름
-    private boolean partstat;      // 참석 상태
+
 }

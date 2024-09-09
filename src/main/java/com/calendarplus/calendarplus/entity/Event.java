@@ -37,5 +37,5 @@ public class Event extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
-    private List<Attendee> attendees;  // 참석자 목록
+    private List<EventAttendee> eventAttendees;  // 참석자 목록
 }
