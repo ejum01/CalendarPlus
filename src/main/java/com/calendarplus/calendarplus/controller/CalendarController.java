@@ -35,12 +35,12 @@ public class CalendarController {
      * 요청 타입: GET
      * 요청 경로 변수: {username} - 조회할 사용자의 사용자 이름
      *
-     * @param username 조회할 사용자의 사용자 이름
+     * @param email 조회할 사용자의 사용자 이름
      * @return 사용자 일정 목록을 담은 응답 (200 OK)
      */
-    @GetMapping("/{username}")
-    public ResponseEntity<List<Event>> getUserCalendar(@PathVariable String username) {
-        List<Event> events = calendarService.getEventsForUser(username);
+    @GetMapping("/{email}")
+    public ResponseEntity<List<Event>> getUserCalendar(@PathVariable String email) {
+        List<Event> events = calendarService.getEventsForUser(email);
         return ResponseEntity.status(200).body(events);
     }
 
@@ -91,6 +91,7 @@ public class CalendarController {
      */
     @DeleteMapping("/events/{id}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
+        log.info("III: CalendarController.deleteEvent {}", id);
         calendarService.deleteEvent(id);
         return ResponseEntity.status(204).body(Constans.EVENT_DELETE_SUCCESS);
     }

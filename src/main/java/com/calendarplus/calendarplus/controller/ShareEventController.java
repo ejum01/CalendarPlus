@@ -3,13 +3,14 @@ package com.calendarplus.calendarplus.controller;
 import com.calendarplus.calendarplus.entity.Event;
 import com.calendarplus.calendarplus.entity.EventAttendee;
 import com.calendarplus.calendarplus.repository.CalendarRepository;
-import com.calendarplus.calendarplus.repository.TestRepository;
+import com.calendarplus.calendarplus.repository.ShareEventRepository;
 import com.calendarplus.calendarplus.service.CalendarService;
-import com.calendarplus.calendarplus.service.TestService;
+import com.calendarplus.calendarplus.service.ShareEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,17 +23,17 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-public class TestController {
+public class ShareEventController {
 
-    private final TestService testService;
+    private final ShareEventService shareEventService;
 
-    private final TestRepository testRepository;
+    private final ShareEventRepository shareEventRepository;
 
     private final CalendarService calendarService;
 
-    public TestController(TestService testService, TestRepository testRepository, CalendarRepository calendarRepository, CalendarService calendarService) {
-        this.testService = testService;
-        this.testRepository = testRepository;
+    public ShareEventController(ShareEventService shareEventService, ShareEventRepository shareEventRepository, CalendarRepository calendarRepository, CalendarService calendarService) {
+        this.shareEventService = shareEventService;
+        this.shareEventRepository = shareEventRepository;
         this.calendarService = calendarService;
     }
 
@@ -53,7 +54,7 @@ public class TestController {
                         .email(email)
                         .build();
 
-                testService.saveAttendee(eventAttendee); // 서비스에서 처리
+                shareEventService.saveAttendee(eventAttendee); // 서비스에서 처리
 
                 String subject = "이벤트 초대: " + event.getTitle();
                 String body = "다음 이벤트에 초대되었습니다: " + event.getTitle() +
@@ -64,7 +65,7 @@ public class TestController {
                         "\n참석이 불가능하다면 '아니오'를 클릭하세요: " +
                         "http://localhost:8080/events/attend?eventId=" + eventId + "&email=" + email + "&response=no";
 
-                testService.sendEmail(email, subject, body); // 이메일 서비스에서 처리
+                shareEventService.sendEmail(email, subject, body); // 이메일 서비스에서 처리
             }
 
             return ResponseEntity.ok("이벤트가 성공적으로 공유되었습니다.");
@@ -74,14 +75,14 @@ public class TestController {
         }
     }
 
-    @PostMapping("/events/attend")
+    @GetMapping("/events/attend")
     public ResponseEntity<String> attendEvent(
             @RequestParam Long eventId,
             @RequestParam String email,
             @RequestParam String response) {
         try {
             boolean partstat = response.equalsIgnoreCase("yes");
-            testService.updateAttendeeResponse(eventId, email, partstat);
+            shareEventService.updateAttendeeResponse(eventId, email, partstat);
             return ResponseEntity.ok("참석 응답이 성공적으로 기록되었습니다.");
         } catch (Exception e) {
             log.error("Error in recording attendance response", e);

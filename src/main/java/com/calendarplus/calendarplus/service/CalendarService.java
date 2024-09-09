@@ -7,7 +7,7 @@ import com.calendarplus.calendarplus.entity.Event;
 import com.calendarplus.calendarplus.entity.User;
 import com.calendarplus.calendarplus.exception.UserNotFoundException;
 import com.calendarplus.calendarplus.repository.CalendarRepository;
-import com.calendarplus.calendarplus.repository.TestRepository;
+import com.calendarplus.calendarplus.repository.ShareEventRepository;
 import com.calendarplus.calendarplus.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +26,12 @@ public class CalendarService {
     private final CalendarRepository calendarRepository;
     private final UserRepository userRepository;
 
-    private final TestRepository testRepository;
+    private final ShareEventRepository shareEventRepository;
 
-    public CalendarService(CalendarRepository calendarRepository, UserRepository userRepository, TestRepository testRepository) {
+    public CalendarService(CalendarRepository calendarRepository, UserRepository userRepository, ShareEventRepository shareEventRepository) {
         this.calendarRepository = calendarRepository;
         this.userRepository = userRepository;
-        this.testRepository = testRepository;
+        this.shareEventRepository = shareEventRepository;
     }
 
     /**
@@ -88,12 +88,12 @@ public class CalendarService {
      * 사용자의 이메일을 기반으로 관련된 이벤트를 조회하여 반환합니다.
      * </p>
      *
-     * @param username 조회할 사용자의 사용자 이름
+     * @param email 조회할 사용자의 사용자 이름
      * @return 해당 사용자의 일정 목록
      * @throws UserNotFoundException 사용자를 찾을 수 없는 경우 발생
      */
-    public List<Event> getEventsForUser(String username) {
-        User user = userRepository.findByUsername(username);
+    public List<Event> getEventsForUser(String email) {
+        User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UserNotFoundException(Constans.USER_NOR_FOUND);
         }

@@ -4,7 +4,7 @@ import com.calendarplus.calendarplus.common.Constans;
 import com.calendarplus.calendarplus.entity.Event;
 import com.calendarplus.calendarplus.entity.EventAttendee;
 import com.calendarplus.calendarplus.repository.CalendarRepository;
-import com.calendarplus.calendarplus.repository.TestRepository;
+import com.calendarplus.calendarplus.repository.ShareEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,18 +20,18 @@ import java.util.Optional;
  * @since : 9/8/24
  */
 @Service
-public class TestService {
+public class ShareEventService {
 
     private final JavaMailSender mailSender;
 
-    private final TestRepository testRepository;
+    private final ShareEventRepository shareEventRepository;
 
     private final CalendarRepository calendarRepository;
 
     @Autowired
-    public TestService(JavaMailSender mailSender, TestRepository testRepository, CalendarRepository calendarRepository) {
+    public ShareEventService(JavaMailSender mailSender, ShareEventRepository shareEventRepository, CalendarRepository calendarRepository) {
         this.mailSender = mailSender;
-        this.testRepository = testRepository;
+        this.shareEventRepository = shareEventRepository;
         this.calendarRepository = calendarRepository;
     }
 
@@ -51,12 +51,12 @@ public class TestService {
             throw new IllegalArgumentException(Constans.EVENT_NOT_FOUND);
         }
 
-        int updatedRows = testRepository.updatePartstat(eventId, email, partstat);
+        shareEventRepository.updatePartstat(eventId, email, partstat);
     }
 
 
     public void saveAttendee(EventAttendee eventAttendee) {
-        testRepository.save(eventAttendee);
+        shareEventRepository.save(eventAttendee);
     }
 
 }
